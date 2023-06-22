@@ -7,11 +7,17 @@ export class UserEntity {
   id: number;
 
   @Column()
+  firstName: string;
+
+  @Column()
+  lastName: string;
+
+  @Column({ unique: true })
   @Min(3)
   @Max(20)
   login: string;
 
-  @Column()
+  @Column({ select: false })
   @Min(3)
   @Max(20)
   password: string;

@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { SharedModule } from '@app/shared';
-import { SERVICE_NAME } from 'utils/services';
+import { SERVICE_NAME } from '@app/shared/services';
 
 @Module({
   imports: [

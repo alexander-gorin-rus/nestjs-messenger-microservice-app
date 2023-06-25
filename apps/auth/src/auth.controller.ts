@@ -1,4 +1,4 @@
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller, Inject, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
   MessagePattern,
@@ -6,16 +6,19 @@ import {
   RmqContext,
   Payload,
 } from '@nestjs/microservices';
-import { BrokerMessages } from 'utils/broker-messages';
+import { BrokerMessages } from '@app/shared/broker-messages';
 import { SharedService } from '@app/shared';
 import { NewUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { JwtGuard } from './jwt-guard/jwt.guard';
+import { SharedServicesInterfaces } from '@app/shared/interfaces/interfaces.names';
 
 @Controller()
 export class AuthController {
   constructor(
+    @Inject(SharedServicesInterfaces.AUTH_SERVICE_INTERFACE)
     private readonly authService: AuthService,
+    @Inject(SharedServicesInterfaces.SHARED_SERVICE_INTERFACE)
     private readonly sharedService: SharedService,
   ) {}
 

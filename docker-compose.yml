@@ -22,7 +22,7 @@ services:
       - rabbitmq
       - postgres
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/apps
       - /usr/src/app/node_modules
     command: npm run start:dev auth --watch
   
@@ -39,7 +39,7 @@ services:
       - auth
       - presence
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/apps
       - /usr/src/app/node_modules
     command: npm run start:dev api --watch
 
@@ -55,7 +55,7 @@ services:
       - rabbitmq
       - postgres
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/apps
       - /usr/src/app/node_modules
     command: npm run start:dev presence --watch
   

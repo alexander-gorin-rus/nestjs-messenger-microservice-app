@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { PresenceService } from './presence.service';
 import { Ctx, MessagePattern, RmqContext } from '@nestjs/microservices';
-import { BrokerMessages } from 'utils/broker-messages';
+import { BrokerMessages } from '@app/shared/broker-messages';
 import { SharedService } from '@app/shared';
 
 @Controller()

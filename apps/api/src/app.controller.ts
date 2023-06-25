@@ -1,8 +1,8 @@
 import { AuthGuard } from '@app/shared';
 import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { BrokerMessages } from 'utils/broker-messages';
-import { SERVICE_NAME } from 'utils/services';
+import { BrokerMessages } from '@app/shared/broker-messages';
+import { SERVICE_NAME } from '@app/shared/services';
 
 @Controller('auth')
 export class AppController {

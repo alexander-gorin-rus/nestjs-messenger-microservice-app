@@ -1,21 +1,23 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from './user.entity';
+import { UserEntity } from '../../../libs/shared/src/entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { Repository } from 'typeorm';
 import { NewUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
+import { SharedServicesInterfaces } from '@app/shared/interfaces/interfaces.names';
+import { IUserRepositoryInterface } from '@app/shared/interfaces';
+import { IAuthServiceInterface } from './interface/auth.service.interface';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements IAuthServiceInterface {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    @Inject(SharedServicesInterfaces.USER_REPOSITORY_INTERFACE)
+    private readonly userRepository: IUserRepositoryInterface,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -23,12 +25,12 @@ export class AuthService {
     return bcrypt.hash(password, 12);
   }
 
-  async getUsers() {
-    return this.userRepository.find();
+  async getUsers(): Promise<UserEntity[]> {
+    return this.userRepository.findAll();
   }
 
   async findByLogin(login: string): Promise<UserEntity> {
-    return await this.userRepository.findOne({
+    return await this.userRepository.findByCondition({
       where: { login },
       select: ['id', 'firstName', 'lastName', 'login', 'password'],
     });
@@ -55,17 +57,14 @@ export class AuthService {
     return savedUser;
   }
 
-  private async doesPasswordMatch(
+  async doesPasswordMatch(
     password: string,
     hashedPassword: string,
   ): Promise<boolean> {
     return await bcrypt.compare(password, hashedPassword);
   }
 
-  private async validateUser(
-    login: string,
-    password: string,
-  ): Promise<UserEntity> {
+  async validateUser(login: string, password: string): Promise<UserEntity> {
     const user = await this.findByLogin(login);
 
     const doesUserExists = !!user;

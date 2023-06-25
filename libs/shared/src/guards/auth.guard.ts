@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable, catchError, of, switchMap } from 'rxjs';
-import { BrokerMessages } from 'utils/broker-messages';
-import { SERVICE_NAME } from 'utils/services';
+import { BrokerMessages } from '@app/shared/broker-messages';
+import { SERVICE_NAME } from '@app/shared/services';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

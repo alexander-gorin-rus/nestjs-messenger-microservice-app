@@ -1,5 +1,6 @@
 import { Max, Min } from '@nestjs/class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Roles } from '../enums';
 
 @Entity('user')
 export class UserEntity {
@@ -22,6 +23,19 @@ export class UserEntity {
   @Max(20)
   password: string;
 
-  // @Column()
-  // role: string;
+  @Column({ default: false })
+  active: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: Roles,
+    default: Roles.worker,
+  })
+  role: string;
+
+  @Column({ default: false })
+  isAdmin: boolean;
+
+  @Column({ default: false })
+  isMaster: boolean;
 }

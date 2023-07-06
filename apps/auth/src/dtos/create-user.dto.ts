@@ -3,4 +3,8 @@ export class NewUserDto {
   lastName: string;
   login: string;
   password: string;
+  role: string;
+  active: boolean;
+  isAdmin: boolean;
+  isMaster: boolean;
 }

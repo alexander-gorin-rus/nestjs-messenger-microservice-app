@@ -82,7 +82,6 @@ export class AuthService implements IAuthServiceInterface {
 
   async login(existingUser: Readonly<LoginUserDto>) {
     const { login, password } = existingUser;
-
     const user = await this.validateUser(login, password);
 
     if (!user) {

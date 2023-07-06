@@ -21,7 +21,7 @@ export class AppController {
     );
   }
 
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @Get('presence')
   async getPresence() {
     return this.presenceService.send(

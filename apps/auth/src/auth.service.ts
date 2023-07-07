@@ -32,7 +32,16 @@ export class AuthService implements IAuthServiceInterface {
   async findByLogin(login: string): Promise<UserEntity> {
     return await this.userRepository.findByCondition({
       where: { login },
-      select: ['id', 'firstName', 'lastName', 'login', 'password'],
+      select: [
+        'id',
+        'firstName',
+        'lastName',
+        'login',
+        'password',
+        'active',
+        'isAdmin',
+        'isMaster',
+      ],
     });
   }
 

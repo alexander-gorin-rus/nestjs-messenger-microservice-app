@@ -41,6 +41,7 @@ export class AuthService implements IAuthServiceInterface {
         'active',
         'isAdmin',
         'isMaster',
+        'role'
       ],
     });
   }
